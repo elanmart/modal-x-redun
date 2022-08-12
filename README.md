@@ -98,7 +98,7 @@ def submit_task(task, stub, *args, **kwargs):
     result = modal_fn(*args, **kwargs)
 ```
 
-So for this dumb PoC when calling a `task` one needs to write `foo.t(*args)` instead of `foo(*args)`, which is ugly as hell but at least it works.
+So for this dumb PoC when calling a `task` one needs to write `foo.lazy(*args)` instead of `foo(*args)`, which is ugly as hell but at least it works.
 
 ```python
 @modal_task(stub=stub)
@@ -108,8 +108,8 @@ def add(x, y):
 
 @modal_task(stub=stub)
 def analysis():
-    res_1 = add.t(1, 1)
-    res_2 = add.t(2, 2)
+    res_1 = add.lazy(1, 1)
+    res_2 = add.lazy(2, 2)
 ```
 
 For this PoC we also decided it would be better to run the `redun` scheduler in the cloud, storing the database in a persistent `SharedVolume`
